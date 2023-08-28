@@ -1,0 +1,257 @@
+/* stylelint-disable */
+//
+// Variables
+// --------------------------------------------------
+
+// stylelint-disable indentation
+
+
+//== Colors
+//
+
+@use "sass:math";
+
+$blue: #0065ff !default;
+$indigo: #4e65e5 !default;
+$purple: #614ba6 !default;
+$pink: #eb5286 !default;
+$red: #e5123d !default;
+$orange: #fc8c12 !default;
+$yellow: #ffc107 !default;
+$green: #029934 !default;
+$teal: #00b3ad !default;
+$cntx-red: #c31525 !default;
+
+$white: #fff !default;
+$black: #000 !default;
+$gray: hsl(hue($indigo), 20%, 85%) !default;
+
+$shade-map: (
+  50: 87.5%,
+  100: 80%,
+  200: 65%,
+  300: 40%,
+  400: 20%,
+  500: 0%,
+  600: 20%,
+  700: 40%,
+  800: 65%,
+  900: 80%,
+  950: 87.5%) !default;
+
+@function shade($color, $shade: 500) {
+  $mixer: if(
+$shade < 500,
+$white,
+$black
+);
+$saturation: if($shade < 500, 0, math.div(($shade - 500), 20));
+@return saturate(mix($mixer, $color, map-get($shade-map, $shade)), $saturation);
+}
+
+$gray-50: shade($gray, 50) !default;
+$gray-100: shade($gray, 100) !default;
+$gray-200: shade($gray, 200) !default;
+$gray-300: shade($gray, 300) !default;
+$gray-400: shade($gray, 400) !default;
+$gray-500: $gray !default;
+$gray-600: shade($gray, 600) !default;
+$gray-700: shade($gray, 700) !default;
+$gray-800: shade($gray, 800) !default;
+$gray-900: shade($gray, 900) !default;
+$gray-950: shade($gray, 950) !default;
+
+$tracker-default-colors-map: (
+  1: (background: $red,
+    color: $white ),
+  2: (background: $blue,
+    color: $white ),
+  3: (background: $green,
+    color: $white ),
+  4: (background: $purple,
+    color: $white ),
+  5: (background: $orange,
+    color: $white ),
+  6: (background: $teal,
+    color: $white ),
+  7: (background: $indigo,
+    color: $white ),
+  8: (background: $indigo,
+    color: $white ),
+  9: (background: $indigo,
+    color: $white ),
+  10: (background: $indigo,
+    color: $white ),
+  11: (background: $indigo,
+    color: $white ),
+  12: (background: $gray-200,
+    color: $indigo ),
+  13: (background: $indigo,
+    color: $white ),
+  14: (background: $gray-200,
+    color: $red ),
+  15: (background: $indigo,
+    color: $white )) !default;
+
+$brand-primary: $cntx-red !default;
+$brand-text: $white !default;
+$brand-accent: shade($brand-primary, 100) !default;
+
+$brand-success: $green !default;
+$brand-info: $blue !default;
+$brand-warning: $orange !default;
+$brand-danger: $red !default;
+
+$state-success: shade($green, 100) !default;
+$state-info: shade($blue, 100) !default;
+$state-warning: shade($orange, 100) !default;
+$state-danger: shade($red, 100) !default;
+
+
+//== Scaffolding
+//
+
+$body-bg: $white !default;
+$text-color: $gray-950 !default;
+
+$link-color: shade($brand-primary, 600) !default;
+$link-hover-color: $brand-primary !default;
+$link-hover-decoration: underline !default;
+$link-closed-decoration: line-through !default;
+$link-color-issue-closed: $gray-700 !default;
+$link-color-project-closed: $gray-700 !default;
+$link-color-user-locked: $gray-700 !default;
+
+
+//== Typography
+//
+
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,600,600i,700,700i,800,800i");
+
+$font-family-sans-serif: Roboto,
+  /* fallback */
+  sans-serif,
+  /* macOS emoji */
+  "Apple Color Emoji",
+  /* Windows emoji */
+  "Segoe UI Emoji",
+  /* Windows emoji */
+  "Segoe UI Symbol",
+  /* Linux emoji */
+  "Noto Color Emoji" !default;
+
+$font-family-monospace:
+  /* macOS 10.10+ */
+  Menlo,
+  /* Windows 6+ */
+  Consolas,
+  /* Android 4+ */
+  Roboto Mono,
+  /* Ubuntu 10.10+ */
+  Ubuntu Monospace,
+  /* KDE Plasma 5+ */
+  Noto Mono,
+  /* KDE Plasma 4+ */
+  Oxygen Mono,
+  /* Linux/OpenOffice fallback */
+  Liberation Mono,
+  /* fallback */
+  monospace !default;
+
+
+$use-logo: true !default;
+$header-padding-vertical: 10px !default;
+$header-padding-horizontal: 10px !default; // 20px
+$logo-image-width: 40px !default;
+$logo-image-height: 40px !default;
+$logo-position-horizontal: $header-padding-vertical !default;
+$logo-position-vertical: center !default;
+$logo-space: floor(math.div($header-padding-vertical, 2)) !default;
+
+#header {
+  >h1 {
+    background-size: $logo-image-height;
+  }
+}
+
+.icon-hourglass-start,
+.icon-hourglass-stop {
+  background-image: none !important;
+
+  &::before {
+    content: "";
+  }
+}
+
+.icon-edit,
+.icon-del,
+.icon-time {
+  &::before {
+    font: normal normal normal 14px/1 FontAwesome;
+  }
+}
+
+.action-login #wrapper,
+.action-register #wrapper,
+.action-lost_password #wrapper {
+  background-color: transparent !important;
+  background-image: url("../images/pcb2.jpg") !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+.action-login #main,
+.action-register #main,
+.action-lost_password #main {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.action-login #content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+
+html > body #content {
+  min-height: 600px;
+}
+
+
+body.action-login,
+body.action-lost_password,
+body.action-register,
+.action-login #wrapper,
+.action-login #wrapper2,
+.action-login #wrapper3,
+.action-lost_password #wrapper,
+.action-lost_password #wrapper2,
+.action-lost_password #wrapper3 {
+  height: 100%;
+}
+
+#login-form {
+  background-color: rgb(255, 255, 255, .66) !important;
+}
+
+#content > div.issue.details > li {
+  display: none;
+}
+
+#content > div.issue.details > div.subtask_list_enhanced_control > div > span > a {
+  font-size: 0;
+
+  &::before {
+    font-size: 1rem;
+  }
+}
+
+.hours table.list tr > td:first-child {
+  text-align: right;
+}
+
+table.list.issues td.parent {
+  width: auto;
+}
